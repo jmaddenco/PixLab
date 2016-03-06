@@ -84,5 +84,70 @@ public class IntArrayWorker {
 			}
 		}
 	}
+	public int getCount(int a) {
+		int count = 0;
+		for(int [] rowArray : matrix) {
+			for(int item : rowArray) {
+				if (item == a) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+
+//	public int getLargest() {
+//		int largest = 0;
+//		for(int [] rowArray : matrix) {
+//			for(int item : rowArray) {
+//				if (item > largest) {
+//					largest = item;
+//				}
+//			}
+//		}
+//		return largest;
+//	}
+//
+//	public int getColTotal(int a) {
+//		int total = 0;
+//		for(int [] rowArray : matrix) {
+//			total += rowArray[a];
+//		}
+//		return total;
+//
+//	}
+//
+//
+//	public int getCount(int a) {
+//		int count = 0;
+//		for (int row = 0; row < matrix.length; row++) {
+//			for (int col = 0; col < matrix[0].length; col++) {
+//				if (matrix[row][col] == a) {
+//					count += 1;
+//				}
+//			}
+//		}
+//		return count;
+//	}
+//
+//	public int getLargest() {
+//		int largest = 0;
+//		for (int row = 0; row < matrix.length; row++) {
+//			for (int col = 0; col < matrix[0].length; col++) {
+//				if (matrix[row][col] > largest) {
+//					largest = matrix[row][col];
+//				}
+//			}
+//		}
+//		return largest;
+//	}
+//
+//	public int getColTotal(int a) {
+//		int colTotal = 0;
+//		for (int row = 0; row < matrix.length; row++) {
+//			colTotal += matrix[row][a];
+//		}
+//		return colTotal;
+//	}
 
 }
