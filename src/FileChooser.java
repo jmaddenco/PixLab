@@ -1,125 +1,51 @@
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import java.util.Properties;
-import java.io.*;
-import java.net.*;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 /**
- * A class to make working with a file chooser easier for students. It uses a
- * JFileChooser to let the user pick a file and returns the chosen file name.
+ * Interface to describe a digital picture. A digital picture can have an
+ * associated file name. It can have a title. It has pixels associated with it
+ * and you can get and set the pixels. You can get an Image from a picture or a
+ * BufferedImage. You can load it from a file name or image. You can show a
+ * picture. You can explore a picture. You can create a new image for it.
  * 
  * @author Barb Ericson ericson@cc.gatech.edu
  */
-public class FileChooser {
+public interface DigitalPicture {
+	public String getFileName(); // get the file name that the picture came from
 
-	/////////////////////// methods /////////////////////////////
+	public String getTitle(); // get the title of the picture
 
-	/**
-	 * Method to get the full path for the passed file name
-	 * 
-	 * @param fileName
-	 *            the name of a file
-	 * @return the full path for the file
-	 */
-	public static String getMediaPath(String fileName) {
-		String path = null;
-		String directory = getMediaDirectory();
-		boolean done = true;
+	public void setTitle(String title); // set the title of the picture
 
-		// get the full path
-		path = directory + fileName;
-		return path;
-	}
+	public int getWidth(); // get the width of the picture in pixels
 
-	/**
-	 * Method to pick an item using the file chooser
-	 * 
-	 * @param fileChooser
-	 *            the file Chooser to use
-	 * @return the path name
-	 */
-	public static String pickPath(JFileChooser fileChooser) {
-		String path = null;
+	public int getHeight(); // get the height of the picture in pixels
 
-		/*
-		 * create a JFrame to be the parent of the file chooser open dialog if
-		 * you don't do this then you may not see the dialog.
-		 */
-		JFrame frame = new JFrame();
-		frame.setAlwaysOnTop(true);
+	public Image getImage(); // get the image from the picture
 
-		// get the return value from choosing a file
-		int returnVal = fileChooser.showOpenDialog(frame);
+	public BufferedImage getBufferedImage(); // get the buffered image
 
-		// if the return value says the user picked a file
-		if (returnVal == JFileChooser.APPROVE_OPTION)
-			path = fileChooser.getSelectedFile().getPath();
-		return path;
-	}
+	public int getBasicPixel(int x, int y); // get the pixel information as an
+											// int
 
-	/**
-	 * Method to let the user pick a file and return the full file name as a
-	 * string. If the user didn't pick a file then the file name will be null.
-	 * 
-	 * @return the full file name of the picked file or null
-	 */
-	public static String pickAFile() {
-		JFileChooser fileChooser = null;
+	public void setBasicPixel(int x, int y, int rgb); // set the pixel
+														// information
 
-		// start off the file name as null
-		String fileName = null;
+	public Pixel getPixel(int x, int y); // get the pixel information as an
+											// object
 
-		// get the current media directory
-		String mediaDir = getMediaDirectory();
+	public Pixel[] getPixels(); // get all pixels in row-major order
 
-		/*
-		 * create a file for this and check that the directory exists and if it
-		 * does set the file chooser to use it
-		 */
-		try {
-			File file = new File(mediaDir);
-			if (file.exists())
-				fileChooser = new JFileChooser(file);
-		} catch (Exception ex) {
-		}
+	public Pixel[][] getPixels2D(); // get 2-D array of pixels in row-major
+									// order
 
-		// if no file chooser yet create one
-		if (fileChooser == null)
-			fileChooser = new JFileChooser();
+	public void load(Image image); // load the image into the picture
 
-		// pick the file
-		fileName = pickPath(fileChooser);
+	public boolean load(String fileName); // load the picture from a file
 
-		return fileName;
-	}
+	public void show(); // show the picture
 
-	/**
-	 * Method to get the directory for the media
-	 * 
-	 * @return the media directory
-	 */
-	public static String getMediaDirectory() {
-		String directory = null;
-		boolean done = false;
-		File dirFile = null;
+	public void explore(); // explore the picture
 
-		// try to find the images directory
-		try {
-			// get the URL for where we loaded this class
-			Class currClass = Class.forName("FileChooser");
-			URL classURL = currClass.getResource("FileChooser.class");
-			URL fileURL = new URL(classURL, "../images/");
-			directory = fileURL.getPath();
-			directory = URLDecoder.decode(directory, "UTF-8");
-			dirFile = new File(directory);
-			if (dirFile.exists()) {
-				// setMediaPath(directory);
-				return directory;
-			}
-		} catch (Exception ex) {
-		}
-
-		return directory;
-	}
-
+	public boolean write(String fileName); // write out a file
 }
