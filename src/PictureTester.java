@@ -109,8 +109,22 @@ public class PictureTester
   /** Method to test edgeDetection */
   public static void testEdgeDetection()
   {
+    Picture swan1 = new Picture("swan.jpg");
+    Picture swan2 = new Picture("swan.jpg");
+    Picture swan3 = new Picture("swan.jpg");
+    swan1.explore();
+    swan1.edgeDetection(15);
+    swan1.explore();
+    swan2.edgeDetection(10);
+    swan2.explore();    
+    swan3.edgeDetection(5);
+    swan3.explore();
+  }
+
+  public static void testEdgeDetection2() {
     Picture swan = new Picture("swan.jpg");
-    swan.edgeDetection(10);
+    swan.explore();
+    swan.edgeDetection2();
     swan.explore();
   }
   
@@ -138,8 +152,8 @@ public class PictureTester
     // testCollage();
     // testCollageUsingParts();
     //testCopy();
-    testEdgeDetection();
-    //testEdgeDetection2();
+    // testEdgeDetection();
+    testEdgeDetection2();
     //testChromakey();
     //testEncodeAndDecode();
     //testGetCountRedOverValue(250);
